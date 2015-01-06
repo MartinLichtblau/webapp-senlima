@@ -1,5 +1,10 @@
 README for senlima
 ==========================
+**Development branch status:** [![Build Status](https://api.travis-ci.org/Senlima/webapp-senlima.svg?branch=development)](https://travis-ci.org/Senlima/webapp-senlima)
+
+**Master branch status:** [![Build Status](https://api.travis-ci.org/Senlima/webapp-senlima.svg?branch=master)](https://travis-ci.org/Senlima/webapp-senlima)
+
+See current version on: https://senlima.herokuapp.com/
 
 Generated with generator-jhipster(commit#945eb88):
 ```                      
