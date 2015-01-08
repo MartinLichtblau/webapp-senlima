@@ -1,0 +1,21 @@
+#This travis.yml deploys the  outcome of the "mvn -Pprod package" task
+language: java
+jdk: oraclejdk8
+install:
+  - gem install compass
+
+script: mvn -Pprod package
+
+before_deploy:
+  - "cp deploycfg/HerokuDatabaseConfiguration.java src/main/java/de/senlima/senlima/config/"
+  - "rm deploycfg/HerokuDatabaseConfiguration.java"
+  - "cp deploycfg/. . -R"
+
+deploy:
+  skip_cleanup: true
+  provider: heroku
+  api_key:
+    secure: nOHe20M3suthiT7QYK1KEtRsNcJYiZS9BTK2gH0QzwD3K9qsY07fl+h+oX6DNhgNxSpqK5IgNmzjEh/Adh1ZqK+xx7u9AOeAzljTqVNuxZM4YEl2Wa2lqdxLVQTgnXJWZ+paX9kGuPI4oKU3navs7aOLcIlXsCJkys9qJRfG0RU=
+  app:
+    development: senlima-dev
+    master: senlima
