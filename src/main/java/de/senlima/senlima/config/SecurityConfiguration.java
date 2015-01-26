@@ -73,7 +73,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
+            //.addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)  // See https://github.com/jhipster/generator-jhipster/issues/965
             .exceptionHandling()
             .authenticationEntryPoint(authenticationEntryPoint)
         .and()
@@ -92,9 +92,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .logout()
             .logoutUrl("/api/logout")
             .logoutSuccessHandler(ajaxLogoutSuccessHandler)
-            .deleteCookies("JSESSIONID", "hazelcast.sessionId", "CSRF-TOKEN")
+            .deleteCookies("JSESSIONID", "CSRF-TOKEN")
             .permitAll()
         .and()
+            .csrf()
+            .disable() // See https://github.com/jhipster/generator-jhipster/issues/965
             .headers()
             .frameOptions()
             .disable()

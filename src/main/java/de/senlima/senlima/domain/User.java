@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -25,25 +26,27 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 0, max = 50)
-    @Column(length = 50, unique = true)
+    @Pattern(regexp = "^[a-z0-9]*$")
+    @Size(min = 1, max = 50)
+    @Column(length = 50, unique = true, nullable = false)
     private String login;
 
     @JsonIgnore
-    @Size(min = 0, max = 100)
+    @NotNull
+    @Size(min = 6, max = 100)
     @Column(length = 100)
     private String password;
 
-    @Size(min = 0, max = 50)
+    @Size(max = 50)
     @Column(name = "first_name", length = 50)
     private String firstName;
 
-    @Size(min = 0, max = 50)
+    @Size(max = 50)
     @Column(name = "last_name", length = 50)
     private String lastName;
 
     @Email
-    @Size(min = 0, max = 100)
+    @Size(max = 100)
     @Column(length = 100, unique = true)
     private String email;
 
@@ -54,7 +57,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "lang_key", length = 5)
     private String langKey;
 
-    @Size(min = 0, max = 20)
+    @Size(max = 20)
     @Column(name = "activation_key", length = 20)
     private String activationKey;
 

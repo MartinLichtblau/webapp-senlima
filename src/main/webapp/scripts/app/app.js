@@ -8,14 +8,6 @@ angular.module('senlimaApp', ['LocalStorageModule', 'tmh.dynamicLocale',
             $rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;
 
-            $http.get('protected/authentication_check.gif', { ignoreErrors: true })
-                .error(function() {
-                    if ($rootScope.toState.data.roles.length > 0) {
-                        Auth.logout();
-                        $state.go('login');
-                    }
-                });
-
             if (Principal.isIdentityResolved()) {
                 Auth.authorize();
             }
@@ -45,7 +37,7 @@ angular.module('senlimaApp', ['LocalStorageModule', 'tmh.dynamicLocale',
         //enable CSRF
         $httpProvider.defaults.xsrfCookieName= 'CSRF-TOKEN';
         $httpProvider.defaults.xsrfHeaderName= 'X-CSRF-TOKEN';
-    
+
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*rest.*/, /.*protected.*/], true);
 
@@ -73,7 +65,7 @@ angular.module('senlimaApp', ['LocalStorageModule', 'tmh.dynamicLocale',
         });
         
 
-        // Initialize angular-translate    
+        // Initialize angular-translate
         $translateProvider.useLoader('$translatePartialLoader', {
             urlTemplate: 'i18n/{lang}/{part}.json'
         });
